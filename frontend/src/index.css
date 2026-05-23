@@ -1,0 +1,143 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,700;1,300;1,400&family=Share+Tech+Mono&family=Syne:wght@400;500;700;800&display=swap');
+
+html {
+  font-size: 92%; /* Scaled for better density without squeezing fonts */
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --void-black: #040508;
+  --surface-layer-1: #07090f;
+  --surface-layer-2: #0c0f1a;
+  --surface-layer-3: #111628;
+  --acid-green: #b8ff47;
+  --plasma-orange: #ff6b35;
+  --arctic-ice: #47c8ff;
+  --plasma-violet: #c947ff;
+  --glow-gold: #ffd166;
+  --text-primary: #e8eaf0;
+  --text-secondary: #6b7394;
+}
+
+@layer base {
+  * {
+    cursor: none !important;
+  }
+
+  body {
+    background-color: var(--void-black);
+    color: var(--text-primary);
+    font-family: 'DM Sans', sans-serif;
+    overflow-x: hidden;
+    @apply selection:bg-acidGreen selection:text-voidBlack;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display uppercase tracking-normal leading-loose;
+    color: #e8eaf0 !important;
+  }
+
+  code, pre, .mono {
+    @apply font-mono uppercase tracking-widest;
+  }
+}
+
+@layer components {
+  /* Neural Breach Scanline Overlay */
+  .scanlines::after {
+    content: " ";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), 
+                linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+    background-size: 100% 3px, 3px 100%;
+    z-index: 100;
+    pointer-events: none;
+    opacity: 0.15;
+  }
+
+  /* Noise Overlay */
+  .noise-overlay {
+    @apply fixed inset-0 bg-noise opacity-[0.02] pointer-events-none z-0;
+  }
+
+  /* Glassmorphism Logic */
+  .glass {
+    @apply backdrop-blur-[20px];
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    border-radius: 0 !important; /* Forces sharp corners */
+  }
+
+  /* Tactical Buttons */
+  .btn-acid-green {
+    @apply relative px-8 py-3 bg-transparent border font-mono uppercase text-sm 
+    transition-all duration-300 overflow-hidden z-10;
+    border-color: var(--acid-green);
+    color: var(--acid-green);
+  }
+
+  .btn-acid-green::before {
+    content: "";
+    @apply absolute inset-0 -z-10 translate-x-[-101%] transition-transform duration-300 ease-in-out;
+    background-color: var(--acid-green);
+  }
+
+  .btn-acid-green:hover::before {
+    @apply translate-x-0;
+  }
+
+  .btn-acid-green:hover {
+    color: var(--void-black);
+  }
+
+  /* Corner Brackets Animation on Hover */
+  .corner-reticle {
+    @apply relative;
+  }
+
+  .corner-reticle::before,
+  .corner-reticle::after {
+    content: "";
+    @apply absolute w-2 h-2 opacity-0 transition-all duration-300;
+    border-color: var(--acid-green);
+  }
+
+  .corner-reticle::before { @apply top-0 left-0 border-t border-l; }
+  .corner-reticle::after { @apply bottom-0 right-0 border-b border-r; }
+
+  .corner-reticle:hover::before,
+  .corner-reticle:hover::after {
+    @apply opacity-100 scale-125;
+  }
+}
+
+/* Custom Tactical Scrollbar */
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: var(--void-black);
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--surface-layer-3);
+  border-right: 1px solid rgba(184, 255, 71, 0.2);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--acid-green);
+  opacity: 0.5;
+}
+
+/* Global Transition Settings */
+#root {
+  @apply transition-opacity duration-1000;
+}
