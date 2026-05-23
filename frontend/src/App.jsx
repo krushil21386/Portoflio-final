@@ -18,6 +18,8 @@ const Contact = React.lazy(() => import('./sections/Contact'));
 const MedicareDeepDive = React.lazy(() => import('./sections/MedicareDeepDive'));
 const HydromapWorkflow = React.lazy(() => import('./sections/HydromapWorkflow'));
 const ProjectDetail = React.lazy(() => import('./sections/ProjectDetail'));
+const Login = React.lazy(() => import('./pages/Login'));
+const AdminDashboard = React.lazy(() => import('./pages/AdminDashboard'));
 
 function App() {
   const [isBooted, setIsBooted] = useState(false);
@@ -54,6 +56,8 @@ function App() {
                 <Route path="/medicare-plus" element={<MedicareDeepDive />} />
                 <Route path="/hydromap" element={<HydromapWorkflow />} />
                 <Route path="/project/:id" element={<ProjectDetail />} />
+                <Route path="/gatekeeper" element={<Login />} />
+                <Route path="/admin" element={<AdminDashboard />} />
               </Routes>
             </Suspense>
           </main>

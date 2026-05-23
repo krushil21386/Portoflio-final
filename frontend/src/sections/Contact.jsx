@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Send, Github, Linkedin, Mail, ArrowRight, CheckCircle, AlertCircle, Loader2 } from 'lucide-react'
 import { useForm } from 'react-hook-form'
-import axios from 'axios'
+import { supabase } from '../lib/supabase'
 import SectionReveal from '../components/SectionReveal'
 
 const Contact = () => {
@@ -12,8 +12,20 @@ const Contact = () => {
   const onSubmit = async (data) => {
     setStatus('loading')
     try {
-      // Connect to Node.js backend
-      await axios.post('http://localhost:5000/api/contact', data)
+      // Connect directly to Supabase contacts table
+      const { error } = await supabase
+        .from('contacts')
+        .insert([
+          {
+            name: data.name,
+            email: data.email,
+            subject: data.subject,
+            message: data.message
+          }
+        ])
+
+      if (error) throw error
+
       setStatus('success')
       reset()
       setTimeout(() => setStatus('idle'), 5000)
