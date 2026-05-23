@@ -1,0 +1,1 @@
+import{j as e,m as n}from"./index-COr524SK.js";const r=({children:i,delay:t=0,className:o=""})=>e.jsx(n.div,{initial:{opacity:0,y:30},whileInView:{opacity:1,y:0},viewport:{once:!0,margin:"-100px"},transition:{duration:.8,delay:t,ease:[.16,1,.3,1]},className:o,children:i});export{r as S};
